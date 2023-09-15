@@ -1,4 +1,5 @@
 import { clone, words } from 'lodash'
+import typo from './passes/letter/typo'
 
 /**
  * typoRate   - Taux d'erreur de faute de frappe  - par défaut 0.1 // TODO
@@ -52,10 +53,10 @@ const letterPasses = (input: string, options: Options) => {
     .split('')
     .map((letter) => {
       // TODO letter passes - letter
+      let output = letter
+      output = typo(letter, options)
 
-      return letter
+      return output
     })
     .join('')
-
-  return input
 }
