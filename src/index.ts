@@ -1,4 +1,4 @@
 export const generate = (input: string) => {
-    console.log(input)
-    return input
-}
+  console.log(input, "toto");
+  return input;
+};
