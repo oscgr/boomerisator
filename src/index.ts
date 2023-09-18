@@ -1,6 +1,8 @@
-import typo from './passes/letter/typo'
 import capitalize from './passes/word/capitalize'
 import upperCase from './passes/word/uppercase'
+import deburr from './passes/letter/deburr'
+import multiple from './passes/letter/multiple'
+import punctuation from './passes/word/punctuation'
 
 /**
  * typoRate   - Taux d'erreur de faute de frappe  - par défaut 0.1 // TODO
@@ -44,8 +46,10 @@ const globalPasses = (input: string, options: Options) => {
 const wordPasses = (input: string, options: Options) => {
   const wordReplacer = (word: string) => {
     let out = word
+    if ('' === word) return word
     out = capitalize(out, options)
     out = upperCase(out, options)
+    out = punctuation(out, options)
 
     // TODO word passes - w
 
@@ -65,7 +69,9 @@ const letterPasses = (input: string, options: Options) => {
     .map((letter) => {
       // TODO letter passes - letter
       let output = letter
-      if (letter !== ' ') output = typo(output, options)
+      output = deburr(output, options)
+      output = upperCase(output, options)
+      output = multiple(output, options)
 
       return output
     })
