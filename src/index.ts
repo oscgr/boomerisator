@@ -1,17 +1,20 @@
-import { clone, words } from 'lodash'
 import typo from './passes/letter/typo'
+import capitalize from './passes/word/capitalize'
+import upperCase from './passes/word/uppercase'
 
 /**
  * typoRate   - Taux d'erreur de faute de frappe  - par défaut 0.1 // TODO
  * runs       - Nombre de passes                  - par défaut 1   // TODO
  * insanity   - Taux de folie                     - par défaut 0.3 // TODO
  * seed       - Seed pour gestion random          - par défaut aléatoire // TODO
+ * mood       - Humeur                            - not set // TODO
  */
 export type Options = {
   typoRate: number
   runs: number
   insanity: number
   seed: number
+  mood?: 'sad' | 'angry' | 'happy'
 }
 
 export const generate = (input: string, options?: Partial<Options>) => {
@@ -22,14 +25,15 @@ export const generate = (input: string, options?: Partial<Options>) => {
     seed: 10,
   } satisfies Options
 
-  let output = input
-
   // --- GLOBAL PASSES --- //
-  output = globalPasses(input, definedOptions)
+  let output = globalPasses(input, definedOptions)
+  console.info('[GLOBAl]', output)
   // --- WORD PASSES --- //
-  output = wordPasses(input, definedOptions)
+  output = wordPasses(output, definedOptions)
+  console.info('[WORDS]', output)
   // --- LETTER PASSES --- //
-  output = letterPasses(input, definedOptions)
+  output = letterPasses(output, definedOptions)
+  console.info('[LETTERS]', output)
   return output
 }
 
@@ -38,13 +42,20 @@ const globalPasses = (input: string, options: Options) => {
   return input
 }
 const wordPasses = (input: string, options: Options) => {
-  const pristineWords = words(input)
-  const w = clone(pristineWords)
+  const wordReplacer = (word: string) => {
+    let out = word
+    out = capitalize(out, options)
+    out = upperCase(out, options)
 
-  // TODO word passes - w
+    // TODO word passes - w
 
-  return pristineWords.reduce((acc, pristineWord, i) => {
-    return `${acc}${input.replace(pristineWord, w[i])}`
+    return out
+  }
+  const words = input.split(/(?:(?![×Þß÷þø])[^-'0-9a-zÀ-ÿ])+/gim)
+  const betweenWords = input.split(/(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ])+/gim)
+
+  return words.reduce((output, word, i) => {
+    return `${output}${betweenWords[i]}${wordReplacer(word)}`
   }, '')
 }
 const letterPasses = (input: string, options: Options) => {
@@ -54,7 +65,7 @@ const letterPasses = (input: string, options: Options) => {
     .map((letter) => {
       // TODO letter passes - letter
       let output = letter
-      output = typo(letter, options)
+      if (letter !== ' ') output = typo(output, options)
 
       return output
     })
