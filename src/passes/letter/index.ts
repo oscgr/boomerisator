@@ -9,13 +9,13 @@ const letterPasses = (input: string, generator: Boomerisator) => {
     .split('')
     .map((letter) => {
       let output = letter
-      if (generator.random(0, 10) < 3) {
+      if (generator.random(0, 100) < generator.getOptions().typoRate * 10) {
         output = deburr(output)
       }
-      if (generator.random(0, 10) < 1) {
+      if (generator.random(0, 100) < generator.getOptions().typoRate * 10) {
         output = upperCase(output)
       }
-      if (generator.random(0, 50) < 1) {
+      if (generator.random(0, 100) < generator.getOptions().typoRate * 10) {
         output = multiple(output, generator)
       }
 

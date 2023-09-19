@@ -5,8 +5,7 @@ import wordPasses from './passes/word'
 export type Options = {
   typoRate: number
   runs: number
-  insanity: number
-  mood?: 'sad' | 'angry' | 'happy'
+  mood?: 'sad' | 'angry' | 'happy' | 'thankful'
   rng: RandomGenerator
 }
 export type Seed = {
@@ -16,9 +15,8 @@ export type Seed = {
 /**
  * Options:
  * seed       - Seed pour gestion random          - par défaut aléatoire // TODO
- * typoRate   - Taux d'erreur de faute de frappe  - par défaut 0.1 // TODO
+ * typo rate   - Taux d'erreur de faute de frappe - par défaut 0.1 // TODO
  * runs       - Nombre de passes                  - par défaut 1   // TODO
- * insanity   - Taux de folie                     - par défaut 0.3 // TODO
  * mood       - Humeur                            - not set // TODO
  */
 export class Boomerisator {
@@ -33,13 +31,15 @@ export class Boomerisator {
       ),
       mood: options?.mood,
       runs: options?.runs || 1,
-      insanity: options?.insanity || 0.3,
       typoRate: options?.typoRate || 0.1,
     }
   }
 
   getInput() {
     return this.input
+  }
+  getOptions() {
+    return this.options
   }
 
   generate(): string {

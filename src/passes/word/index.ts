@@ -10,7 +10,10 @@ const wordPasses = (input: string, generator: Boomerisator) => {
 
     if (generator.random(0, 10) < 2) {
       out = capitalize(out)
-    } else if (generator.random(0, 10) < 3) {
+    } else if (
+      generator.random(0, 100) >
+      (generator.getOptions().mood === 'angry' ? 10 : 95)
+    ) {
       out = upperCase(out)
     }
     if (generator.random(0, 10) < 1) {
