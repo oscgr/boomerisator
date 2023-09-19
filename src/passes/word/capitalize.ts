@@ -1,9 +1,6 @@
-import { capitalize as c, random } from 'lodash'
-import { Options } from '../../index'
+import { capitalize as c } from 'lodash'
 
-const capitalize = (word: string, options: Options): string => {
-  if (random() < options.typoRate) return c(word) || ''
-
-  return word
+const capitalize = (word: string): string => {
+  return c(word) || ''
 }
 export default capitalize

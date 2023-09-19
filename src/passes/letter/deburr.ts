@@ -1,9 +1,6 @@
-import { random, deburr as d } from 'lodash'
-import { Options } from '../../index'
+import { deburr as d } from 'lodash'
 
-const deburr = (letter: string, options: Options): string => {
-  if (random() < options.typoRate) return d(letter)
-
-  return letter
+const deburr = (letter: string): string => {
+  return d(letter)
 }
 export default deburr

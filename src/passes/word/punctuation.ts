@@ -1,5 +1,4 @@
-import { random } from 'lodash'
-import { Options } from '../../index'
+import { Boomerisator } from '../../index'
 
 const punctuations = [
   ' (!!!)',
@@ -14,11 +13,7 @@ const punctuations = [
   '.',
 ]
 
-const punctuation = (word: string, options: Options): string => {
-  if (random() < options.typoRate) {
-    return `${word}${punctuations[random(0, punctuations.length - 1)]}`
-  }
-
-  return word
+const punctuation = (word: string, generator: Boomerisator): string => {
+  return `${word}${punctuations[generator.random(0, punctuations.length - 1)]}`
 }
 export default punctuation

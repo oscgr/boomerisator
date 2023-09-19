@@ -33,6 +33,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "pure-rand": "^6.0.3"
   }
 }

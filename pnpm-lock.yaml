@@ -4,6 +4,9 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  pure-rand:
+    specifier: ^6.0.3
+    version: 6.0.3
 
 devDependencies:
   '@types/jest':
@@ -2658,7 +2661,6 @@ packages:
 
   /pure-rand@6.0.3:
     resolution: {integrity: sha512-KddyFewCsO0j3+np81IQ+SweXLDnDQTs5s67BOnrYmYe/yNmUhttQyGsYzy8yUnoljGAQ9sl38YB4vH8ur7Y+w==}
-    dev: true
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
